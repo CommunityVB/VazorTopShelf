@@ -1,0 +1,80 @@
+﻿@{
+  // This is the view for the Contacts controller's Index action.
+  // It displays a list of contacts and a form to add a new contact.
+  // It's a standard ASP.NET C# Razor view; it doesn't use Vazor.
+  // To use Vazor and VB.NET code:
+  //   1. Create your Vazor view in a separate VB.NET class
+  //   2. In your controller action, instantiate your Vazor view class
+  // An example of this is found in the Controllers/HomeController.Index.vb class.
+}
+
+@model List<VazorTopShelf.Db.Models.Contact>
+
+@{
+  ViewData["Title"] = "Contacts";
+
+  if (Model.Count == 0) {
+    <div>No contacts found.</div>
+  } else {
+    <table>
+      <thead>
+        <tr>
+          <th>First</th>
+          <th>Last</th>
+          <th>Email</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach (var Contact in Model) {
+        <tr>
+          <td>@Contact.FirstName</td>
+          <td>@Contact.LastName</td>
+          <td>@Contact.Email</td>
+          <td>(@Contact.PhoneArea) @Contact.PhonePrefix-@Contact.PhoneSuffix</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  }
+}
+
+  <hr />
+  <style>
+    th, td {
+      padding-left: 5px;
+    }
+  </style>
+  <div style="margin-bottom:25px;">
+    Add a new Contact
+  </div>
+  <form method="post" asp-controller="Contacts" asp-action="Index">
+    <table>
+      <tr>
+        <td><label>First Name</label></td>
+        <td><input type="text" id="txtFirstName" name="FirstName" /></td>
+      </tr>
+      <tr>
+        <td><label>Last Name</label></td>
+        <td><input type="text" id="txtLastName" name="LastName" /></td>
+      </tr>
+      <tr>
+        <td><label>Phone</label></td>
+        <td>
+          (
+          <input type="text" id="txtPhoneArea" name="PhoneArea" style="width:50px;" />
+          )
+          <input type="text" id="txtPhonePrefix" name="PhonePrefix" style="width:50px;" />
+          -
+          <input type="text" id="txtPhoneSuffix" name="PhoneSuffix" style="width:75px;" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>Email</label></td>
+        <td><input type="text" id="txtEmail" name="Email" /></td>
+      </tr>
+    </table>
+    <div style="margin-top:25px;">
+      <button type="submit">Save</button>
+    </div>
+  </form>
