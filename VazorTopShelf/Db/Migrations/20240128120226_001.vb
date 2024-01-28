@@ -17,9 +17,7 @@ Namespace Global.VazorTopShelf.Db.Migrations
                     .Email = table.Column(Of String)(type:="TEXT", maxLength:=50, nullable:=False, defaultValue:=""),
                     .PhoneArea = table.Column(Of String)(type:="TEXT", maxLength:=3, nullable:=False, defaultValue:=""),
                     .PhonePrefix = table.Column(Of String)(type:="TEXT", maxLength:=3, nullable:=False, defaultValue:=""),
-                    .PhoneSuffix = table.Column(Of String)(type:="TEXT", maxLength:=4, nullable:=False, defaultValue:=""),
-                    .Instructions = table.Column(Of String)(type:="TEXT", nullable:=False, defaultValue:=""),
-                    .Relation = table.Column(Of String)(type:="TEXT", maxLength:=10, nullable:=False, defaultValue:="")
+                    .PhoneSuffix = table.Column(Of String)(type:="TEXT", maxLength:=4, nullable:=False, defaultValue:="")
                 },
                 constraints:=Sub(table)
                     table.PrimaryKey("PK_Contacts", Function(x) x.Id)

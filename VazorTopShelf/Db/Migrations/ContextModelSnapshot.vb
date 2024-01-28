@@ -33,12 +33,6 @@ Namespace Global.VazorTopShelf.Db.Migrations
                         HasColumnType("TEXT").
                         HasDefaultValue("")
 
-                    b.Property(Of String)("Instructions").
-                        IsRequired().
-                        ValueGeneratedOnAdd().
-                        HasColumnType("TEXT").
-                        HasDefaultValue("")
-
                     b.Property(Of String)("LastName").
                         IsRequired().
                         ValueGeneratedOnAdd().
@@ -64,13 +58,6 @@ Namespace Global.VazorTopShelf.Db.Migrations
                         IsRequired().
                         ValueGeneratedOnAdd().
                         HasMaxLength(4).
-                        HasColumnType("TEXT").
-                        HasDefaultValue("")
-
-                    b.Property(Of String)("Relation").
-                        IsRequired().
-                        ValueGeneratedOnAdd().
-                        HasMaxLength(10).
                         HasColumnType("TEXT").
                         HasDefaultValue("")
 

@@ -1,5 +1,4 @@
 Imports System
-Imports System.Linq
 Imports Microsoft.AspNetCore.Builder
 Imports Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
 Imports Microsoft.EntityFrameworkCore
@@ -16,20 +15,11 @@ Friend Module Program
     Dim oHost As Host
 
     sServiceName = "VazorTopShelf"
-    sDisplayName = "Vazor TopShelf Sample"
+    sDisplayName = "Vazor/TopShelf Example"
     sDescription = "This service demonstrates running Vazor under Kestrel in a TopShelf service."
 
     oHost = New Host(sServiceName, sDisplayName, sDescription)
-
-    If Args.Length = 0 Then
-      oHost.Run(Args)
-    Else
-      ' EF Core design-time commands send an argument --applicationName
-      ' If we see that argument, we don't want to run the service
-      If Args.First <> "--applicationName" Then
-        oHost.Run(Args)
-      End If
-    End If
+    oHost.Run(Args)
   End Sub
 
 
@@ -67,7 +57,9 @@ Friend Module Program
                                                           Builder.UseSqlite(Utils.ConnectionString)
                                                         End Sub)
 
-    oContext = CreateHostBuilder.Services.BuildServiceProvider.GetService(Of Context)
-    oContext.Database.Migrate
+    If Utils.IsService Then
+      oContext = CreateHostBuilder.Services.BuildServiceProvider.GetService(Of Context)
+      oContext.Database.Migrate
+    End If
   End Function
 End Module

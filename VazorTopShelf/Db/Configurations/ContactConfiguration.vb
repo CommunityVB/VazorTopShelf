@@ -13,8 +13,6 @@ Namespace Configurations
       Builder.Property(Function(Contact) Contact.PhoneArea).IsRequired.HasDefaultValue(String.Empty).HasMaxLength(3)
       Builder.Property(Function(Contact) Contact.PhonePrefix).IsRequired.HasDefaultValue(String.Empty).HasMaxLength(3)
       Builder.Property(Function(Contact) Contact.PhoneSuffix).IsRequired.HasDefaultValue(String.Empty).HasMaxLength(4)
-      Builder.Property(Function(Contact) Contact.Relation).IsRequired.HasDefaultValue(String.Empty).HasMaxLength(10)
-      Builder.Property(Function(Contact) Contact.Instructions).IsRequired.HasDefaultValue(String.Empty)
 
       Builder.HasIndex(Function(Contact) New With {Contact.FirstName, Contact.LastName})
       Builder.HasIndex(Function(Contact) Contact.FirstName)

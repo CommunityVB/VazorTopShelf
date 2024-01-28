@@ -7,7 +7,7 @@ Imports VazorTopShelf.Db
 
 Namespace Global.VazorTopShelf.Db.Migrations
     <DbContext(GetType(Context))>
-    <Migration("20240127005030_001")>
+    <Migration("20240128120226_001")>
     Partial Class _001
         ''' <inheritdoc />
         Protected Overrides Sub BuildTargetModel(modelBuilder As ModelBuilder)
@@ -30,12 +30,6 @@ Namespace Global.VazorTopShelf.Db.Migrations
                         IsRequired().
                         ValueGeneratedOnAdd().
                         HasMaxLength(10).
-                        HasColumnType("TEXT").
-                        HasDefaultValue("")
-
-                    b.Property(Of String)("Instructions").
-                        IsRequired().
-                        ValueGeneratedOnAdd().
                         HasColumnType("TEXT").
                         HasDefaultValue("")
 
@@ -64,13 +58,6 @@ Namespace Global.VazorTopShelf.Db.Migrations
                         IsRequired().
                         ValueGeneratedOnAdd().
                         HasMaxLength(4).
-                        HasColumnType("TEXT").
-                        HasDefaultValue("")
-
-                    b.Property(Of String)("Relation").
-                        IsRequired().
-                        ValueGeneratedOnAdd().
-                        HasMaxLength(10).
                         HasColumnType("TEXT").
                         HasDefaultValue("")
 

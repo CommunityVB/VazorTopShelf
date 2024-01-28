@@ -1,6 +1,22 @@
-﻿Imports System.IO
+﻿Imports System.Diagnostics
+Imports System.IO
 
 Public Class Utils
+  ''' <summary>
+  ''' Gets a value indicating whether this instance is being run as a service (in either debug or production mode).
+  ''' </summary>
+  ''' <value>
+  '''   <c>True</c> if this instance is running as a service; otherwise, <c>False</c>.
+  ''' </value>
+  ''' <remarks>If an EF Core design-time command is being run, we don't want to apply migrations to the database.</remarks>
+  Public Shared ReadOnly Property IsService As Boolean
+    Get
+      Return Process.GetCurrentProcess.ProcessName <> "dotnet"
+    End Get
+  End Property
+
+
+
   ''' <summary>
   ''' Gets the project's content root folder.
   ''' </summary>
