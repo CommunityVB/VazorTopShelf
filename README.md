@@ -16,7 +16,7 @@ To uninstall the service, run the following command from an elevated command pro
 
 Here's a high-level view of how it works:
 
-1. The `Program` class is the entry point for the application. It initializes a `Host` instance, and then calls the `Host.Run()` method.
+1. The `Program` module is the entry point for the application. It initializes a `Host` instance, and then calls the `Host.Run()` method.
 2. `Host.Run()` sets the stage for the service, including specifying what happens when the service starts and stops.
 3. The `Manager.StartService()` method configures and runs the Web Application when the service starts. Note that the `WebApplication` class provides a `Run()` method, which blocks and listens on a port and which we normally use, but since TopShelf handles the blocking all we need here is the listening component, `StartAsync()`.
 
