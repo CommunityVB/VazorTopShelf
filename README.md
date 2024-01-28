@@ -1,6 +1,6 @@
 # VazorTopShelf
 
-This sample demonstrates running a Vazor VB.NET Web Application under Kestrel, hosted in a Windows Service using TopShelf. It started as a simple .NET Core VB.NET Console application. The Project SDK value was updated from `Microsoft.NET.Sdk` to `Microsoft.NET.Sdk.Web` and the Vazor and TopShelf packages were added. Essential files were copied from a new Vazor-template-sourced project.
+This sample demonstrates running a Vazor VB.NET Web application under Kestrel, hosted in a Windows Service using TopShelf. It started as a simple .NET Core VB.NET Console application. The Project SDK value was updated from `Microsoft.NET.Sdk` to `Microsoft.NET.Sdk.Web` and the Vazor and TopShelf packages were added. Essential files were copied from a new Vazor-template-sourced project.
 
 To install the service, `dotnet publish` to your desired output directory, and then run the following command from an elevated command prompt in that directory:
 
