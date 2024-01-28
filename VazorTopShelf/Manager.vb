@@ -32,12 +32,10 @@ Friend Class Manager
 
 
   ''' <summary>
-  ''' Configures the website, invokes the <see cref="BeforeStart"/> action, starts the website, and then invokes the <see cref="AfterStart"/> action.
+  ''' Configures the web application, invokes the <see cref="BeforeStart"/> action, starts the website, and then invokes the <see cref="AfterStart"/> action.
   ''' </summary>
   ''' <param name="Args">The incoming command line arguments.</param>
   Public Sub StartService(Args As String())
-    Dim oBuilder As WebApplicationBuilder
-
     VazorSharedView.CreateAll()
 
     Log.Logger = (New LoggerConfiguration).
@@ -47,24 +45,15 @@ Friend Class Manager
       Console.
       CreateLogger
 
-    oBuilder = CreateHostBuilder(Args)
-
-    Me.App = oBuilder.Build
+    Me.App = CreateHostBuilder(Args).Build
     Me.App.UseHttpsRedirection
     Me.App.UseStaticFiles
     Me.App.UseRouting
     Me.App.UseAuthorization
-
-    Me.App.UseEndpoints(
-      Sub(Routes)
-        Routes.MapControllerRoute(
-              name:="default",
-              pattern:="{controller=Home}/{action=Index}/{id?}"
-            )
-      End Sub)
+    Me.App.UseEndpoints(Sub(Routes) Routes.MapControllerRoute(name:=NAME, pattern:=PATTERN))
 
     Me.BeforeStart?.Invoke
-    Me.App?.StartAsync()
+    Me.App.StartAsync()
     Me.AfterStart?.Invoke
   End Sub
 
@@ -75,7 +64,7 @@ Friend Class Manager
   ''' </summary>
   Public Sub StopService()
     Me.BeforeStop?.Invoke
-    Me.App?.StopAsync()
+    Me.App.StopAsync()
     Me.AfterStop?.Invoke
   End Sub
 
@@ -86,4 +75,7 @@ Friend Class Manager
   Private ReadOnly AfterStart As Action
   Private ReadOnly AfterStop As Action
   Private App As WebApplication
+
+  Private Const PATTERN As String = "{controller=Home}/{action=Index}/{id?}"
+  Private Const NAME As String = "default"
 End Class
