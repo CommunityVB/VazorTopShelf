@@ -1,5 +1,7 @@
 Imports System
+Imports System.Diagnostics
 Imports Microsoft.AspNetCore.Builder
+Imports Microsoft.VisualBasic
 Imports Serilog
 Imports Vazor
 
@@ -32,7 +34,8 @@ Friend Class Manager
 
 
   ''' <summary>
-  ''' Configures the web application, invokes the <see cref="BeforeStart"/> action, starts the website, and then invokes the <see cref="AfterStart"/> action.
+  ''' Configures the web application, invokes the <see cref="BeforeStart"/> action,
+  ''' starts the website, and then invokes the <see cref="AfterStart"/> action.
   ''' </summary>
   ''' <param name="Args">The incoming command line arguments.</param>
   Public Sub StartService(Args As String())
@@ -45,16 +48,24 @@ Friend Class Manager
       Console.
       CreateLogger
 
-    Me.App = CreateHostBuilder(Args).Build
-    Me.App.UseHttpsRedirection
-    Me.App.UseStaticFiles
-    Me.App.UseRouting
-    Me.App.UseAuthorization
-    Me.App.UseEndpoints(Sub(Routes) Routes.MapControllerRoute(name:=NAME, pattern:=PATTERN))
+    Try
+      Me.App = CreateHostBuilder(Args).Build
+      Me.App.UseHttpsRedirection
+      Me.App.UseStaticFiles
+      Me.App.UseRouting
+      Me.App.UseAuthorization
+      Me.App.UseEndpoints(Sub(Routes) Routes.MapControllerRoute(name:=NAME, pattern:=PATTERN))
 
-    Me.BeforeStart?.Invoke
-    Me.App.StartAsync()
-    Me.AfterStart?.Invoke
+      Me.BeforeStart?.Invoke
+      Me.App.StartAsync()
+      Me.AfterStart?.Invoke
+
+    Catch ex As Exception
+      ' See https://www.jitbit.com/alexblog/266-writing-to-an-event-log-from-net-without-the-description-for-event-id-nonsense/
+      EventLog.WriteEntry(".NET Runtime", $"VazorTopShelf service error:{vbCrLf}{vbCrLf}{ex}", EventLogEntryType.Error, 1000)
+      Throw
+
+    End Try
   End Sub
 
 

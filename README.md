@@ -6,7 +6,7 @@ To install the service, `dotnet publish` to your desired output directory, and t
 
 `VazorTopShelf.exe install`
 
-This will install the service. You can then start it using `net start VazorTopShelf` or *services.msc*. With the service running, navigate to [http://localhost:5000/](http://localhost:5000/) to view the application and access its pages. At service start, a simple SQLite database will automatically be created in the project's `Db\Data` folder (if it doesn't exist already).
+This will install the service. You can then start it using `net start VazorTopShelf` or *services.msc*. With the service running, navigate to [http://localhost:5000/](http://localhost:5000/) to view the application and access its pages. At service start, a simple SQLite database will automatically be created in a new `Db\Data` folder alongside `wwwroot` (if they don't exist already).
 
 The installation is configured in the `Host.Run()` method to set the service's startup type to *Automatic (Delayed Start)*. You can change this setting to your liking by calling `HostConfig.Disabled()`, `HostConfig.StartManually()`, `HostConfig.StartAutomatically()` or `HostConfig.StartAutomaticallyDelayed()`.
 

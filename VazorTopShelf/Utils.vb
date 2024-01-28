@@ -31,7 +31,7 @@ Public Class Utils
   ''' <returns>A connection string.</returns>
   Public Shared ReadOnly Property ConnectionString As String
     Get
-      Return $"Data Source={DbFile}"
+      Return $"Data Source={DbFile.FullName}"
     End Get
   End Property
 
@@ -41,9 +41,19 @@ Public Class Utils
   ''' The SQLite database file.
   ''' </summary>
   ''' <returns>A <see cref="FileInfo"/> instance representing the database.</returns>
-  Public Shared ReadOnly Property DbFile As String
+  Public Shared ReadOnly Property DbFile As FileInfo
     Get
-      Return Path.Combine(ContentRootFolder.FullName, "Db", "Data", "Contacts.db")
+      Dim oDbFolder As DirectoryInfo
+      Dim sDbFolder As String
+      Dim sDbFile As String
+
+      sDbFolder = Path.Combine(ContentRootFolder.FullName, "Db", "Data")
+      oDbFolder = New DirectoryInfo(sDbFolder)
+      sDbFile = Path.Combine(oDbFolder.FullName, "Contacts.db")
+
+      oDbFolder.Create()
+
+      Return New FileInfo(sDbFile)
     End Get
   End Property
 End Class
