@@ -38,7 +38,6 @@ Friend Module Program
     Dim oMvcOptions As Action(Of MvcRazorRuntimeCompilationOptions)
     Dim oWebOptions As WebApplicationOptions
     Dim oProvider As VazorViewProvider
-    Dim oContext As Context
 
     oMvcOptions = Sub(Options)
                     oProvider = New VazorViewProvider
@@ -56,10 +55,5 @@ Friend Module Program
     CreateHostBuilder.Services.AddDbContext(Of Context)(Sub(Builder)
                                                           Builder.UseSqlite(Utils.ConnectionString)
                                                         End Sub)
-
-    If Utils.IsService Then
-      oContext = CreateHostBuilder.Services.BuildServiceProvider.GetService(Of Context)
-      oContext.Database.Migrate
-    End If
   End Function
 End Module

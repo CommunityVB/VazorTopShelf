@@ -1,9 +1,12 @@
 Imports System
 Imports System.Diagnostics
 Imports Microsoft.AspNetCore.Builder
+Imports Microsoft.EntityFrameworkCore
+Imports Microsoft.Extensions.DependencyInjection
 Imports Microsoft.VisualBasic
 Imports Serilog
 Imports Vazor
+Imports VazorTopShelf.Db
 
 ''' <summary>
 ''' This class manages what occurs when the service is started or stopped.
@@ -55,6 +58,10 @@ Friend Class Manager
       Me.App.UseRouting
       Me.App.UseAuthorization
       Me.App.UseEndpoints(Sub(Routes) Routes.MapControllerRoute(name:=NAME, pattern:=PATTERN))
+
+      Using oScope As IServiceScope = Me.App.Services.CreateScope
+        oScope.ServiceProvider.GetRequiredService(Of Context).Database.Migrate
+      End Using
 
       Me.BeforeStart?.Invoke
       Me.App.StartAsync()
