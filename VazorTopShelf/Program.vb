@@ -4,22 +4,57 @@ Imports Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
 Imports Microsoft.EntityFrameworkCore
 Imports Microsoft.Extensions.DependencyInjection
 Imports Serilog
+Imports ServiceRunner
 Imports Vazor
 Imports VazorTopShelf.Db
 
 Friend Module Program
   Friend Sub Main(Args As String())
+    Dim oServiceEvents As ServiceEvents
     Dim sServiceName As String
     Dim sDisplayName As String
     Dim sDescription As String
+    Dim oOnStart As Action
+    Dim oOnStop As Action
     Dim oHost As Host
+
+    VazorSharedView.CreateAll()
+
+    Log.Logger = (New LoggerConfiguration).
+      MinimumLevel.
+      Information.
+      WriteTo.
+      Console.
+      CreateLogger
+
+    oOnStart = Sub()
+                 Website = CreateHostBuilder(Args).Build
+                 Website.UseHttpsRedirection
+                 Website.UseStaticFiles
+                 Website.UseRouting
+                 Website.UseAuthorization
+                 Website.UseEndpoints(Sub(Routes) Routes.MapControllerRoute(name:=NAME, pattern:=PATTERN))
+
+                 Using oScope As IServiceScope = Website.Services.CreateScope
+                   oScope.ServiceProvider.GetRequiredService(Of Context).Database.Migrate
+                 End Using
+
+                 Website.StartAsync()
+               End Sub
+
+    oOnStop = Sub() Website.StopAsync()
+
+    oServiceEvents = New ServiceEvents From {
+      {ServiceEvents.Events.OnStart, oOnStart},
+      {ServiceEvents.Events.OnStop, oOnStop}
+    }
 
     sServiceName = "VazorTopShelf"
     sDisplayName = "Vazor/TopShelf Example"
     sDescription = "This service demonstrates running Vazor under Kestrel in a TopShelf service."
 
     oHost = New Host(sServiceName, sDisplayName, sDescription)
-    oHost.Run(Args)
+    oHost.Run(oServiceEvents)
   End Sub
 
 
@@ -56,4 +91,11 @@ Friend Module Program
                                                           Builder.UseSqlite(Utils.ConnectionString)
                                                         End Sub)
   End Function
+
+
+
+  Private Website As WebApplication
+
+  Private Const PATTERN As String = "{controller=Home}/{action=Index}/{id?}"
+  Private Const NAME As String = "default"
 End Module

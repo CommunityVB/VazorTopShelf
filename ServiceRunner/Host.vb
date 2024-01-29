@@ -104,10 +104,9 @@ Public Class Host
   ''' <summary>
   ''' Runs the <see cref="HostFactory"/> for the service.
   ''' </summary>
-  ''' <param name="Args">The incoming command line arguments.</param>
   ''' <returns>The TopShelf exit code.</returns>
-  Public Function Run(Args As String()) As ExitCodes
-    Return Me.Run(Args, Nothing, Nothing)
+  Public Function Run() As ExitCodes
+    Return Me.Run(Nothing, Nothing)
   End Function
 
 
@@ -115,11 +114,10 @@ Public Class Host
   ''' <summary>
   ''' Runs the <see cref="HostFactory"/> for the service.
   ''' </summary>
-  ''' <param name="Args">The incoming command line arguments.</param>
   ''' <param name="HostEvents">A collection of actions to be invoked at various stages of service installation.</param>
   ''' <returns>The TopShelf exit code.</returns>
-  Public Function Run(Args As String(), HostEvents As HostEvents) As ExitCodes
-    Return Me.Run(Args, HostEvents, Nothing)
+  Public Function Run(HostEvents As HostEvents) As ExitCodes
+    Return Me.Run(HostEvents, Nothing)
   End Function
 
 
@@ -127,11 +125,10 @@ Public Class Host
   ''' <summary>
   ''' Runs the specified arguments.
   ''' </summary>
-  ''' <param name="Args">The incoming command line arguments.</param>
   ''' <param name="ServiceEvents">A set of actions to be invoked when the service is started and stopped.</param>
   ''' <returns>The TopShelf exit code.</returns>
-  Public Function Run(Args As String(), ServiceEvents As ServiceEvents) As ExitCodes
-    Return Me.Run(Args, Nothing, ServiceEvents)
+  Public Function Run(ServiceEvents As ServiceEvents) As ExitCodes
+    Return Me.Run(Nothing, ServiceEvents)
   End Function
 
 
@@ -139,11 +136,10 @@ Public Class Host
   ''' <summary>
   ''' Runs the specified arguments.
   ''' </summary>
-  ''' <param name="Args">The incoming command line arguments.</param>
   ''' <param name="HostEvents">A collection of actions to be invoked at various stages of service installation.</param>
   ''' <param name="ServiceEvents">A set of actions to be invoked when the service is started and stopped.</param>
   ''' <returns>The TopShelf exit code.</returns>
-  Public Function Run(Args As String(), HostEvents As HostEvents, ServiceEvents As ServiceEvents) As ExitCodes
+  Public Function Run(HostEvents As HostEvents, ServiceEvents As ServiceEvents) As ExitCodes
     Dim oServiceEvents As ServiceEvents
     Dim oConfigurator As Action(Of HostConfigurator)
     Dim oWhenStarted As Action(Of Manager)
@@ -154,8 +150,8 @@ Public Class Host
     oServiceEvents = If(ServiceEvents, New ServiceEvents)
     oHostEvents = If(HostEvents, New HostEvents)
 
-    oFactory = Function(Settings) New Manager(oServiceEvents)
-    oWhenStarted = Sub(Manager) Manager.StartService(Args) ' This action is invoked when the service is started.
+    oFactory = Function(Settings) New Manager(Me, oServiceEvents)
+    oWhenStarted = Sub(Manager) Manager.StartService() ' This action is invoked when the service is started.
     oWhenStopped = Sub(Manager) Manager.StopService() ' This action is invoked when the service is stopped.
 
     oConfigurator = Sub(HostConfig)

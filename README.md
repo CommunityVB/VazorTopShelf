@@ -18,7 +18,7 @@ Here's a high-level view of how it works:
 
 1. The `Program` module is the entry point for the application. It initializes a `Host` instance, and then calls the `Host.Run()` method.
 2. `Host.Run()` sets the stage for the service, including specifying what happens when the service starts and stops.
-3. The `Manager.StartService()` method configures and runs the Web Application when the service starts. Note that the `WebApplication` class provides a `Run()` method, which blocks and listens on a port and which we normally use, but since TopShelf handles the blocking all we need here is the listening component, `StartAsync()`.
+3. The `Manager.StartService()` method configures and invokes the constructor-provided `OnStart()` action—which in turn configures and starts the website—when the service starts. Note that the `WebApplication` class provides a `Run()` method, which blocks and listens on a port and which we normally use, but since TopShelf handles the blocking all we need here is the listening component, `StartAsync()`.
 
 ## Notes
 
@@ -28,7 +28,7 @@ Current date: Jan 27, 2024
 
   > Found version-specific or distribution-specific runtime identifier(s): alpine-arm, alpine-arm64, alpine-x64. Affected libraries: SQLitePCLRaw.lib.e_sqlite3. In .NET 8.0 and higher, assets for version-specific and distribution-specific runtime identifiers will not be found by default. See https://aka.ms/dotnet/rid-usage for details.
 
-  See [https://github.com/sebastienros/yessql/issues/510](https://github.com/sebastienros/yessql/issues/510) for more information. The temporary workaround is to update the normally-transient `SQLitePCLRaw.bundle_e_sqlite3` package to `2.1.7`. Once the VB.NET EF Core design-time tools are updated to support EF Core 8, this interim package update won't be necessary.
+  See [https://github.com/sebastienros/yessql/issues/510](https://github.com/sebastienros/yessql/issues/510) for more information. The temporary workaround is to update the normally-transitive `SQLitePCLRaw.bundle_e_sqlite3` package to `2.1.7`. Once the VB.NET EF Core design-time tools are updated to support EF Core 8, this interim package update won't be necessary.
 
 - The Vazor repository is located at [https://github.com/VBAndCs/Vazor](https://github.com/VBAndCs/Vazor). The latest version (v2.1) is available at [https://marketplace.visualstudio.com/items?itemName=ModernVBNET.Vazor](https://marketplace.visualstudio.com/items?itemName=ModernVBNET.Vazor).
 - The TopShelf repository is located at [https://github.com/Topshelf/Topshelf](https://github.com/Topshelf/Topshelf).

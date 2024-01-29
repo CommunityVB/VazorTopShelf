@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ServiceRunner", "ServiceRunner\ServiceRunner.vbproj", "{859FAE4A-4E15-4854-A351-6A0CD7A7E998}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,12 +22,16 @@ Global
 		{03EC7CF4-E928-4119-B71D-A2534F5A2619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03EC7CF4-E928-4119-B71D-A2534F5A2619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03EC7CF4-E928-4119-B71D-A2534F5A2619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859FAE4A-4E15-4854-A351-6A0CD7A7E998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859FAE4A-4E15-4854-A351-6A0CD7A7E998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859FAE4A-4E15-4854-A351-6A0CD7A7E998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859FAE4A-4E15-4854-A351-6A0CD7A7E998}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {ECD5E28F-357E-44D1-87A8-FC317BB2F1F0}
 		        SolutionGuid = {92011A1C-8568-4A6C-9926-290226AD6F29}
+		SolutionGuid = {ECD5E28F-357E-44D1-87A8-FC317BB2F1F0}
 	EndGlobalSection
 EndGlobal
