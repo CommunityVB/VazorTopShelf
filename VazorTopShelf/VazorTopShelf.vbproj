@@ -7,7 +7,6 @@
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>

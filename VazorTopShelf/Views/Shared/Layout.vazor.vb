@@ -74,7 +74,7 @@ Public Class LayoutView
 
             <footer class="border-top footer text-muted">
               <div Class="container">
-                    &amp;copy; <%= Date.Now.Year %> - Vazor-TopShelf - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &amp;copy; <%= Date.Now.Year %> - Vazor/TopShelf - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
               </div>
             </footer>
 

@@ -3,13 +3,7 @@ Imports System.Diagnostics
 Imports Microsoft.VisualBasic
 
 Friend Class Manager
-  Public Sub New(Host As Host)
-    Me.New(Host, Nothing)
-  End Sub
-
-
-
-  Public Sub New(Host As Host, Events As ServiceEvents)
+  Friend Sub New(Host As Host, Events As ServiceEvents)
     Me.OnStart = Events.OnStart
     Me.OnStop = Events.OnStop
     Me.Host = Host
@@ -17,7 +11,7 @@ Friend Class Manager
 
 
 
-  Public Sub StartService()
+  Friend Sub StartService()
     Try
       Me.OnStart?.Invoke
 
@@ -31,7 +25,7 @@ Friend Class Manager
 
 
 
-  Public Sub StopService()
+  Friend Sub StopService()
     Me.OnStop?.Invoke
   End Sub
 

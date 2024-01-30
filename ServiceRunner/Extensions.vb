@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.Runtime.CompilerServices
 
-Public Module Extensions
+Friend Module Extensions
   ''' <summary>
   ''' Throws a <see cref="NullReferenceException"/> if Instance is Nothing.
   ''' </summary>
